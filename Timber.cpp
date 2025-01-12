@@ -9,13 +9,13 @@ const int NUM_BEES = 5;
 
 int main()
 {
-    //Seed random num generator and Initiate Variables
+    //Seed random num generator and declare variables
     srand((int)time(0));
     Clock clock;
     std::vector<Bee> bees((rand() % NUM_BEES) + 1);
 
     //Create and open a window for the game
-    RenderWindow window(VideoMode(1920, 1080), "Timber", Style::Titlebar);
+    RenderWindow window(VideoMode(1920, 1080), "Timber", Style::Fullscreen);
 
     //Load the background texture on the GPU and attach to a sprite
     Texture textureBackground;

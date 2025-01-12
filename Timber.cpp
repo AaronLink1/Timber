@@ -2,10 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "Bee.h"
+#include "Cloud.h"
 
 using namespace sf;
 
 const int NUM_BEES = 5;
+const int NUM_CLOUDS = 5;
 
 int main()
 {
@@ -13,6 +15,7 @@ int main()
     srand((int)time(0));
     Clock clock;
     std::vector<Bee> bees((rand() % NUM_BEES) + 1);
+    std::vector<Cloud> clouds((rand() % NUM_CLOUDS) + 3);
 
     //Create and open a window for the game
     RenderWindow window(VideoMode(1920, 1080), "Timber", Style::Fullscreen);
@@ -28,7 +31,11 @@ int main()
     Texture textureBee;
     textureBee.loadFromFile("graphics/bee.png");
 
-    //Init Bees
+    //Load cloud texture on GPU memory
+    Texture textureCloud;
+    textureCloud.loadFromFile("graphics/cloud.png");
+
+    //Init bees
     for (Bee& bee : bees)
     {
         bee.setSprite(textureBee);
@@ -36,7 +43,15 @@ int main()
         bee.setActive(false);
     }
 
-    //GameLoop
+    //Init clouds
+    for (Cloud& cloud : clouds)
+    {
+        cloud.setSprite(textureCloud);
+        cloud.setPosition(0, 0);
+        cloud.setActive(false);
+    }
+
+    //Game loop
     while (window.isOpen())
     {
         //Handle player input
@@ -46,7 +61,7 @@ int main()
         //Update the Scene
         Time dt = clock.restart();
 
-        for (Bee& bee : bees)
+        for (Bee& bee : bees) //Update the bees
         {
             if (!bee.isActive())
             {
@@ -62,13 +77,32 @@ int main()
             }
         }
 
+        for (Cloud& cloud : clouds) //Update the clouds
+        {
+            if (!cloud.isActive())
+            {
+                cloud.setPosition(-300, rand() % 325);
+                cloud.setSpeed((rand() % 25) + 20);
+                cloud.setActive(true);
+            }
+            else
+            {
+                cloud.move(dt.asSeconds());
+                if (cloud.offScreen())
+                    cloud.setActive(false);
+            }
+        }
+
         //Draw the Scene
         window.clear();
 
         window.draw(spriteBackground); //Draw background
 
-        for (Bee& bee : bees) //Draw Bees
+        for (Bee& bee : bees) //Draw bees
             window.draw(bee.getSprite());
+
+        for (Cloud& cloud : clouds) //Draw clouds
+            window.draw(cloud.getSprite());
 
         window.display();
 

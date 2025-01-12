@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Bee
+class Cloud
 {
 public:
 	//Constructor
-	Bee();
+	Cloud();
 
 	//Functions
 	void setSprite(const sf::Texture&);
@@ -14,10 +14,10 @@ public:
 	void move(float);
 	bool offScreen();
 	bool isActive() { return active; }
-	sf::Sprite& getSprite() { return spriteBee; }
+	sf::Sprite& getSprite() { return spriteCloud; }
 
 private:
-	sf::Sprite spriteBee;
+	sf::Sprite spriteCloud;
 	float speed;
 	bool active;
 };

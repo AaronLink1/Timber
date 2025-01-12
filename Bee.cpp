@@ -8,12 +8,12 @@ Bee::Bee()
 
 void Bee::setSprite(const sf::Texture& texture)
 {
-	beeSprite.setTexture(texture);
+	spriteBee.setTexture(texture);
 }
 
 void Bee::setPosition(float x, float y)
 {
-	beeSprite.setPosition(x, y);
+	spriteBee.setPosition(x, y);
 }
 
 void Bee::setSpeed(float speed)
@@ -28,14 +28,14 @@ void Bee::setActive(bool active)
 
 void Bee::move(float dt)
 {
-	float x = beeSprite.getPosition().x - (speed * dt);
-	float y = 0.015 * std::sin(0.05 * x) + beeSprite.getPosition().y;
-	beeSprite.setPosition(x, y);
+	float x = spriteBee.getPosition().x - (speed * dt);
+	float y = 0.015 * std::sin(0.05 * x) + spriteBee.getPosition().y;
+	spriteBee.setPosition(x, y);
 }
 
 bool Bee::offScreen()
 {
-	if (beeSprite.getPosition().x < -100)
+	if (spriteBee.getPosition().x < -100)
 		return true;
 
 	return false;

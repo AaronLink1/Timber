@@ -9,6 +9,13 @@ int main()
     //Create and open a window for the game
     RenderWindow window(VideoMode(1920, 1080), "Timber", Style::Fullscreen);
 
+    //Load the background texture on the GPU and attach to a sprite
+    Texture textureBackground;
+    textureBackground.loadFromFile("graphics/background.png");
+    Sprite spriteBackground;
+    spriteBackground.setTexture(textureBackground);
+    spriteBackground.setPosition(0, 0);
+
     //GameLoop
     while (window.isOpen())
     {
@@ -20,6 +27,8 @@ int main()
 
         //Draw the Scene
         window.clear();
+
+        window.draw(spriteBackground);
 
         window.display();
     }

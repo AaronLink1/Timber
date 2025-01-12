@@ -28,7 +28,9 @@ void Bee::setActive(bool active)
 
 void Bee::move(float dt)
 {
-	beeSprite.setPosition(beeSprite.getPosition().x - (speed * dt), beeSprite.getPosition().y);
+	float x = beeSprite.getPosition().x - (speed * dt);
+	float y = 0.015 * std::sin(0.05 * x) + beeSprite.getPosition().y;
+	beeSprite.setPosition(x, y);
 }
 
 bool Bee::offScreen()

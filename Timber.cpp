@@ -6,7 +6,7 @@
 
 using namespace sf;
 
-const int NUM_BEES = 5;
+const int NUM_BEES = 3;
 const int NUM_CLOUDS = 5;
 
 int main()
@@ -26,6 +26,13 @@ int main()
     Sprite spriteBackground;
     spriteBackground.setTexture(textureBackground);
     spriteBackground.setPosition(0, 0);
+
+    //Load tree texture on GPU memory
+    Texture textureTree;
+    textureTree.loadFromFile("graphics/tree.png");
+    Sprite spriteTree;
+    spriteTree.setTexture(textureTree);
+    spriteTree.setPosition(810, 0);
 
     //Load bee texture on GPU memory
     Texture textureBee;
@@ -98,11 +105,13 @@ int main()
 
         window.draw(spriteBackground); //Draw background
 
-        for (Bee& bee : bees) //Draw bees
-            window.draw(bee.getSprite());
-
         for (Cloud& cloud : clouds) //Draw clouds
             window.draw(cloud.getSprite());
+
+        window.draw(spriteTree); //Draw tree
+
+        for (Bee& bee : bees) //Draw bees
+            window.draw(bee.getSprite());
 
         window.display();
 

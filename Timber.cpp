@@ -16,6 +16,7 @@ int main()
     Clock clock;
     std::vector<Bee> bees((rand() % NUM_BEES) + 1);
     std::vector<Cloud> clouds((rand() % NUM_CLOUDS) + 3);
+    bool paused = true;
 
     //Create and open a window for the game
     RenderWindow window(VideoMode(1920, 1080), "Timber", Style::Fullscreen);
@@ -62,41 +63,47 @@ int main()
     while (window.isOpen())
     {
         //Handle player input
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
+        if (Keyboard::isKeyPressed(Keyboard::Escape)) //Close the game
             window.close();
+
+        if (Keyboard::isKeyPressed(Keyboard::Return)) //Pause/unpause the game
+            paused = !paused;
 
         //Update the Scene
         Time dt = clock.restart();
 
-        for (Bee& bee : bees) //Update the bees
+        if (!paused)
         {
-            if (!bee.isActive())
+            for (Bee& bee : bees) //Update the bees
             {
-                bee.setPosition(2000, (rand() % 500) + 500);
-                bee.setSpeed((rand() % 150) + 200);
-                bee.setActive(true);
+                if (!bee.isActive())
+                {
+                    bee.setPosition(2000, (rand() % 500) + 500);
+                    bee.setSpeed((rand() % 150) + 200);
+                    bee.setActive(true);
+                }
+                else
+                {
+                    bee.move(dt.asSeconds());
+                    if (bee.offScreen())
+                        bee.setActive(false);
+                }
             }
-            else
-            {
-                bee.move(dt.asSeconds());
-                if (bee.offScreen())
-                    bee.setActive(false);
-            }
-        }
 
-        for (Cloud& cloud : clouds) //Update the clouds
-        {
-            if (!cloud.isActive())
+            for (Cloud& cloud : clouds) //Update the clouds
             {
-                cloud.setPosition(-300, rand() % 325);
-                cloud.setSpeed((rand() % 25) + 20);
-                cloud.setActive(true);
-            }
-            else
-            {
-                cloud.move(dt.asSeconds());
-                if (cloud.offScreen())
-                    cloud.setActive(false);
+                if (!cloud.isActive())
+                {
+                    cloud.setPosition(-300, rand() % 325);
+                    cloud.setSpeed((rand() % 25) + 20);
+                    cloud.setActive(true);
+                }
+                else
+                {
+                    cloud.move(dt.asSeconds());
+                    if (cloud.offScreen())
+                        cloud.setActive(false);
+                }
             }
         }
 

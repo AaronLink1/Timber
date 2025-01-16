@@ -150,7 +150,7 @@ int main()
                     window.close();
                     break;
                 case Keyboard::Return:
-                    paused = !paused;
+                        paused = !paused;
                     break;
                 case Keyboard::Left:
                     updateBranches();
@@ -158,11 +158,7 @@ int main()
                 case Keyboard::Right:
                     updateBranches();
                     break;
-                default:
-                    break;
                 }
-                break;
-            default:
                 break;
             }
         }

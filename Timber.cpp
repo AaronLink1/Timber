@@ -62,6 +62,39 @@ int main()
     Texture textureCloud;
     textureCloud.loadFromFile("graphics/cloud.png");
 
+    //Load player texture on GPU memory and init player
+    Texture texturePlayer;
+    texturePlayer.loadFromFile("graphics/player.png");
+    Sprite spritePlayer;
+    spritePlayer.setTexture(texturePlayer);
+    spritePlayer.setPosition(580, 720); //Player starts on left side
+    side playerSide = side::LEFT;
+    
+    //Load gravestone texture on GPU memory and init gravestone
+    Texture textureRIP;
+    textureRIP.loadFromFile("graphics/rip.png");
+    Sprite spriteRIP;
+    spriteRIP.setTexture(textureRIP);
+    spriteRIP.setPosition(600, 860);
+
+    //Load axe texture on GPU memory and init axe
+    Texture textureAxe;
+    textureAxe.loadFromFile("graphics/axe.png");
+    Sprite spriteAxe;
+    spriteAxe.setTexture(textureAxe);
+    spriteAxe.setPosition(700, 830);
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
+
+    //Load flying log texture on GPU memory and init flying log
+    Texture textureLog;
+    textureLog.loadFromFile("graphics/log.png");
+    Sprite spriteLog;
+    spriteLog.setTexture(textureLog);
+    spriteLog.setPosition(810, 720);
+    bool logActive = false;
+    float logSpeedX = 1000, logSpeedY = -1500;
+
     //Load font and create text variables
     Font font;
     font.loadFromFile("fonts/KOMIKAP_.ttf");
@@ -151,6 +184,8 @@ int main()
                     break;
                 case Keyboard::Return:
                         paused = !paused;
+                        messageText.setString("PRESS ENTER TO START!");
+                        centerOrigin(messageText);
                     break;
                 case Keyboard::Left:
                     updateBranches();
@@ -223,7 +258,11 @@ int main()
             timebar.setPosition(960 - timebarWidthPerSecond * timeRemaining / 2, 980);
 
             if (timeRemaining <= 0.0f)
+            {
                 paused = true;
+                messageText.setString("PRESS ENTER TO RESTART!");
+                centerOrigin(messageText);
+            }
         }
 
         //Draw the Scene
@@ -238,6 +277,14 @@ int main()
             window.draw(branch);
 
         window.draw(spriteTree); //Draw tree
+
+        window.draw(spritePlayer); //Draw player
+
+        window.draw(spriteAxe); //Draw axe
+
+        window.draw(spriteLog); //Draw log
+
+        window.draw(spriteRIP); //Draw gravestone
 
         for (Bee& bee : bees) //Draw bees
             window.draw(bee.getSprite());

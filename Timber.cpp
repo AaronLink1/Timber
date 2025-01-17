@@ -184,8 +184,14 @@ int main()
                     break;
                 case Keyboard::Return:
                         paused = !paused;
-                        messageText.setString("PRESS ENTER TO START!");
+                        messageText.setString("PRESS ENTER TO RESUME!");
                         centerOrigin(messageText);
+
+                        if (timeRemaining <= 0)
+                        {
+                            timeRemaining = 6.0f;
+                            score = 0;
+                        }
                     break;
                 case Keyboard::Left:
                     updateBranches();

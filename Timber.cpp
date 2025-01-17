@@ -75,7 +75,7 @@ int main()
     textureRIP.loadFromFile("graphics/rip.png");
     Sprite spriteRIP;
     spriteRIP.setTexture(textureRIP);
-    spriteRIP.setPosition(600, 860);
+    spriteRIP.setPosition(675, 2000);
 
     //Load axe texture on GPU memory and init axe
     Texture textureAxe;
@@ -127,29 +127,13 @@ int main()
 
     //Init tree branches
     for (side& side : branchSides)
-    {
-        int random = rand() % 5;
-        switch (random)
-        {
-        case 0:
-            side = side::LEFT;
-            break;
-        case 1:
-            side = side::RIGHT;
-            break;
-        default:
-            side = side::NONE;
-            break;
-        }
-    }
+        side = side::NONE;
 
     for (int i = 0; i < NUM_BRANCHES; i++)
     {
         branches[i].setTexture(textureBranch);
         branches[i].setPosition(-2000, -2000);
         branches[i].setOrigin(220, 20);
-        if (branchSides[i] == side::LEFT)
-            branches[i].setRotation(180);
     }
 
     //Init bees
@@ -191,6 +175,13 @@ int main()
                         {
                             timeRemaining = 6.0f;
                             score = 0;
+                            
+                            for (side& branch : branchSides)
+                                branch = side::NONE;
+
+                            spriteRIP.setPosition(675, 2000);
+                            spritePlayer.setPosition(580, 720);
+                            side playerSide = side::LEFT;
                         }
                     break;
                 case Keyboard::Left:

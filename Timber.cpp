@@ -185,36 +185,42 @@ int main()
                         }
                     break;
                 case Keyboard::Left:
-                    //Update player and axe
-                    playerSide = side::LEFT;
-                    spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
-                    spritePlayer.setPosition(580, 720);
-                    
-                    //Update score, time and branches
-                    score++;
-                    timeRemaining += 2.0f / score + 0.15;
-                    updateBranches();
+                    if (!paused)
+                    {
+                        //Update player and axe
+                        playerSide = side::LEFT;
+                        spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
+                        spritePlayer.setPosition(580, 720);
 
-                    //Update flying log
-                    spriteLog.setPosition(810, 720);
-                    logSpeedX = 5000;
-                    logActive = true;
+                        //Update score, time and branches
+                        score++;
+                        timeRemaining += 2.0f / score + 0.15;
+                        updateBranches();
+
+                        //Update flying log
+                        spriteLog.setPosition(810, 720);
+                        logSpeedX = 5000;
+                        logActive = true;
+                    }
                     break;
                 case Keyboard::Right:
-                    //Update player and axe
-                    playerSide = side::RIGHT;
-                    spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
-                    spritePlayer.setPosition(1200, 720);
-                    
-                    //Update score, time and branches
-                    score++;
-                    timeRemaining += 2.0f / score + 0.15;
-                    updateBranches();
-                    
-                    //Update flying log
-                    spriteLog.setPosition(810, 720);
-                    logSpeedX = -5000;
-                    logActive = true;
+                    if (!paused)
+                    {
+                        //Update player and axe
+                        playerSide = side::RIGHT;
+                        spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
+                        spritePlayer.setPosition(1200, 720);
+
+                        //Update score, time and branches
+                        score++;
+                        timeRemaining += 2.0f / score + 0.15;
+                        updateBranches();
+
+                        //Update flying log
+                        spriteLog.setPosition(810, 720);
+                        logSpeedX = -5000;
+                        logActive = true;
+                    }
                     break;
                 }
                 break;

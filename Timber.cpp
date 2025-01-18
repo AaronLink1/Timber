@@ -82,7 +82,7 @@ int main()
     textureAxe.loadFromFile("graphics/axe.png");
     Sprite spriteAxe;
     spriteAxe.setTexture(textureAxe);
-    spriteAxe.setPosition(700, 830);
+    spriteAxe.setPosition(2000, 830);
     const float AXE_POSITION_LEFT = 700;
     const float AXE_POSITION_RIGHT = 1075;
 
@@ -218,6 +218,9 @@ int main()
                     break;
                 }
                 break;
+            case Event::KeyReleased:
+                spriteAxe.setPosition(2000, spriteAxe.getPosition().y);
+                break;
             }
         }
 
@@ -268,6 +271,16 @@ int main()
                     branches[i].setPosition(1330, height);
                 else
                     branches[i].setPosition(3000, height);
+            }
+
+            if (logActive)
+            {
+                spriteLog.setPosition(spriteLog.getPosition().x + logSpeedX * dt.asSeconds(), spriteLog.getPosition().y + logSpeedY * dt.asSeconds());
+                if (spriteLog.getPosition().x < -100 || spriteLog.getPosition().x > 2000)
+                {
+                    logActive = false;
+                    spriteLog.setPosition(810, 720);
+                }
             }
 
             //Update score

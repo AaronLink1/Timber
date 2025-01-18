@@ -1,6 +1,7 @@
 // Timber.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <sstream>
 #include "Bee.h"
 #include "Cloud.h"
@@ -95,6 +96,22 @@ int main()
     bool logActive = false;
     float logSpeedX = 1000, logSpeedY = -1500;
 
+    //Load sounds onto RAM and associate with a sound object
+    SoundBuffer bufferChop;
+    bufferChop.loadFromFile("sound/chop.wav");
+    Sound soundChop;
+    soundChop.setBuffer(bufferChop);
+
+    SoundBuffer bufferDeath;
+    bufferDeath.loadFromFile("sound/death.wav");
+    Sound soundDeath;
+    soundDeath.setBuffer(bufferDeath);
+
+    SoundBuffer bufferOOT;
+    bufferOOT.loadFromFile("sound/out_of_time.wav");
+    Sound soundOOT;
+    soundOOT.setBuffer(bufferOOT);
+
     //Load font and create text variables
     Font font;
     font.loadFromFile("fonts/KOMIKAP_.ttf");
@@ -187,6 +204,9 @@ int main()
                 case Keyboard::Left:
                     if (!paused)
                     {
+                        //Play sound
+                        soundChop.play();
+
                         //Update player and axe
                         playerSide = side::LEFT;
                         spriteAxe.setPosition(AXE_POSITION_LEFT, spriteAxe.getPosition().y);
@@ -206,6 +226,9 @@ int main()
                 case Keyboard::Right:
                     if (!paused)
                     {
+                        //Play sound
+                        soundChop.play();
+
                         //Update player and axe
                         playerSide = side::RIGHT;
                         spriteAxe.setPosition(AXE_POSITION_RIGHT, spriteAxe.getPosition().y);
@@ -296,6 +319,7 @@ int main()
                 spritePlayer.setPosition(2000, 660);
                 messageText.setString("YOU DIED! PRESS ENTER TO RESTART!");
                 centerOrigin(messageText);
+                soundDeath.play();
             }
 
             //Update score
@@ -313,6 +337,7 @@ int main()
                 paused = true;
                 messageText.setString("PRESS ENTER TO RESTART!");
                 centerOrigin(messageText);
+                soundOOT.play();
             }
         }
 

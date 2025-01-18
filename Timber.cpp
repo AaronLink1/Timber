@@ -171,7 +171,7 @@ int main()
                         messageText.setString("PRESS ENTER TO RESUME!");
                         centerOrigin(messageText);
 
-                        if (timeRemaining <= 0)
+                        if (timeRemaining <= 0 || playerSide == branchSides[5])
                         {
                             timeRemaining = 6.0f;
                             score = 0;
@@ -281,6 +281,15 @@ int main()
                     logActive = false;
                     spriteLog.setPosition(810, 720);
                 }
+            }
+
+            if (branchSides[5] == playerSide)
+            {
+                paused = true;
+                spriteRIP.setPosition(spritePlayer.getPosition());
+                spritePlayer.setPosition(2000, 660);
+                messageText.setString("YOU DIED! PRESS ENTER TO RESTART!");
+                centerOrigin(messageText);
             }
 
             //Update score
